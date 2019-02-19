@@ -58,7 +58,7 @@ function draw_on_canvas()
    else
    {
       ball_must_be_shown  =  true ;
-      if ( ball_center_point_y < canvas.height - 50 && ball_center_point_y )
+      if ( ball_center_point_y < canvas.height - 50 && ball_center_point_y && current_direction == "DOWN")
       {
         ball_center_point_y += 30;
       }else
@@ -68,7 +68,7 @@ function draw_on_canvas()
             ball_center_point_x -= 50;
           }
       }
-      if ( ball_center_point_x == canvas.width - 550 && ball_center_point_y == canvas.height - 50 )
+      if ( ball_center_point_x == canvas.width - 550 && ball_center_point_y == canvas.height - 50 && current_direction == "UP")
       {
 
         ball_center_point_y -=50;
