@@ -1,0 +1,135 @@
+<!DOCTYPE html>  <!-- This identifies an HTML 5 document. -->
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>AnimationDemoCanvas.html &copy; Kari Laitinen</title>
+
+<!--   http://www.naturalprogramming.com/
+
+   2012-02-29 File created.
+   2014-02-06 Last modification.
+
+    This example demonstrates how animation can be created.
+    'Animation' in this program means that there is a blinking
+    ball on the screen.
+
+    More information at:
+      http://www.w3schools.com/js/js_timing.asp
+
+    There are notes at the end of this file.
+
+-->
+
+<script type="text/javascript">
+
+var ball_center_point_x = 300 ;
+var ball_center_point_y = 240 ;
+
+var current_ball_color = "cyan" ;
+
+var ball_must_be_shown  =  true ;
+
+
+function draw_on_canvas()
+{
+   var canvas = document.getElementById( "animation_demo_canvas" ) ;
+   var context = canvas.getContext("2d") ;
+   var current_direction = "DOWN" ;
+   // We'll fill the entire canvas with light color, which overdraws
+   // the previous drawings.
+
+   context.fillStyle = "rgb( 255, 255, 210 )" ;  // light yellow
+   context.fillRect( 0, 0, canvas.width, canvas.height ) ;
+
+
+   if ( ball_must_be_shown  ==  true )
+   {
+      context.fillStyle = current_ball_color ;
+
+      context.beginPath() ;
+      context.arc( ball_center_point_x, ball_center_point_y,
+                   50, 0, 2 * Math.PI, true )
+      context.closePath() ;
+      context.stroke() ;
+      context.fill() ;
+
+      ball_must_be_shown  =  false ;
+   }
+   else
+   {
+      ball_must_be_shown  =  true ;
+      if ( ball_center_point_y < canvas.height - 50 && ball_center_point_y )
+      {
+        ball_center_point_y += 30;
+      }else
+      {
+        if ( ball_center_point_y == canvas.height - 50 && ball_center_point_x > canvas.width - 550 )
+          {
+            ball_center_point_x -= 50;
+          }
+      }
+      if ( ball_center_point_x == canvas.width - 550 && ball_center_point_y == canvas.height - 50 )
+      {
+
+        ball_center_point_y -=50;
+      }
+   }
+
+   //  With the following method call we specify that this
+   //  method "draw_on_canvas()" will be automatically called
+   //  again after 1000 milliseconds, i.e., after one second.
+
+   //  This has the effect that "draw_on_canvas()" is executed
+   //  repeatedly once in every second. As the ball is
+   //  not drawn during every execution, it seems to blink
+   //  on the screen.
+
+   setTimeout( "draw_on_canvas()", 200 ) ;
+}
+
+</script>
+
+<style type="text/css">
+
+   #centered
+   {
+      width: 600px;
+      height: 500px;
+      margin: 30px auto;    /* top and bottom margins are 30p;
+                               right and left margins are automatic */
+      border: 1px solid black;
+   }
+
+</style>
+</head>
+
+<body onload="draw_on_canvas()">
+
+   <div id=centered>
+      <canvas id=animation_demo_canvas
+         width=600 height=500>
+      </canvas>
+
+   </div>
+
+</body>
+</html>
+
+<!--
+
+    A NOTE RELATED TO HUMAN PHYSIOLOGY:
+
+    This program can be used to demonstrate the strange
+    behaviour of our sight system. If you watch the blinking ball
+    from a short distance, you'll notice that when the ball disappears
+    from the screen you see a kind of shadow of the ball. The color
+    of the shadowish ball seems to be close to magenta, which is a
+    kind of opposite color to cyan, the color of the 'real' ball.
+    The reason for seeing this kind of shadow of the ball is in
+    our eyes. Our sight system is such that the sight cells inside
+    our eyes remember the object (i.e. the ball) that disappears,
+    but they produce the opposite color for the disappeared object.
+    (This nice feature in this program was discovered by professor
+    Matti Weckström from the University of Oulu.)
+
+-->
